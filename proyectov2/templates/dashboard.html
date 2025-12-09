@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de explicación de uso de API</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+</head>
+<body class="dashBody">
+    <div class="header">
+        <h1>Bienvenido, Usuario (ID: {{ session.user_id }})</h1>
+        <p>¡Acceso a la API RESTful de Productos concedido!</p>
+        <a href="/logout" class="logout-btn">Cerrar Sesión</a>
+    </div>
+
+    <div class="container">
+        <h2>Endpoints Disponibles</h2>
+
+        {% if session.role == "admin" %}
+            <h2>Eres Administrador, tienes control absoluto de la base de datos</h2>
+                <p>Debes usar la siguiente API-KEY: {{ token }}</p>
+        {% else %}
+            <h2>Eres Usuario solo tienes permitido ver (GET)</h2>
+        {% endif %}
+        <p>Todas las rutas se acceden a través de la base <code>/api</code>.</p>
+
+        <ul class="endpoint-list">
+            <li class="endpoint-item get">
+                <span class="method get-m">GET</span>
+                <span class="path"> <a href="/api/productos">/api/productos</a></span>
+                <p><strong>Descripción:</strong> Recupera el listado de productos</p>
+                <p><strong>Retorno:</strong> JSON con lista de productos y metadatos de paginación.</p>
+            </li>
+            <li class="endpoint-item get">
+                <span class="method get-m">GET</span>
+                <span class="path"> <a href="/api/productos?id=1">/api/productos?&lt;id=int:idprd&gt;</a></span>
+                <p><strong>Descripción:</strong> Recupera los detalles de un producto específico utilizando su ID Origen.</p>
+                <p><strong>Retorno:</strong> JSON del objeto producto o 404 si no existe.</p>
+            </li>
+            <li class="endpoint-item put">
+                <span class="method put-m">PUT</span>
+                <span class="path"><a href="/api/productos/1?tkn={{token}}">/api/productos/&lt;id=int:idprd&gt;?&lt;tkn=API-KEY&gt; </a></span>
+                <p><strong>Descripción:</strong> Como Administrador permite editar en postman uno de los productos utilizando id producto como diferenciador</p>
+                <p><strong>Ejemplo JSON:</strong> <code>{"id": int, "idOrigen": int, "nombre": "texto" , "uMedida": "unidad, o Kg, o Lb,etc." , "precio": int}</code></p>
+            </li>
+            <li class="endpoint-item post">
+                <span class="method post-m">POST</span>
+                <span class="path"><a href="/api/productos/1?tkn={{token}}"> /api/productos?&lt;tkn=API-KEY&gt; </a></span>
+                <p><strong>Descripción:</strong> Como Administrador permite crear en postman un nuevo producto. Requiere un cuerpo JSON con nombre,unidad de medida, precio e id de Origen y opcionalmente id </p>
+                <p><strong>Ejemplo JSON:</strong> <code>{"id": int, "idOrigen": int, "nombre": "texto" , "uMedida": "unidad, o Kg, o Lb,etc." , "precio": int}</code></p>
+                <p><strong>Retorno:</strong> JSON con el ID del producto creado (código 201).</p>
+            </li>
+            <li class="endpoint-item delete">
+                <span class="method delete-m">DELETE</span>
+               <span class="path"><a href="/api/productos/1?tkn={{token}}">/api/productos/&lt;id=int:idprd&gt;?&lt;tkn=API-KEY&gt; </a></span>
+                <p><strong>Descripción:</strong>Como Administrador elimina un producto específico utilizando su id.</p>
+                <p><strong>Retorno:</strong> JSON de confirmación o 404 si no existe.</p>
+            </li>
+        </ul>
+
+    </div>
+</body>
+</html>

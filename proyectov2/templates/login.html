@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+</head>
+
+<body>
+    <div class="cajaLogin">
+        <h1 class="titLogin">Acceso</h1>
+        <p class="txtLogin">Introduzca sus credenciales</p>
+
+        {% if message %}
+            <h3 class="sbTitLogin">{{ message }}</h3>
+        {% endif %}
+
+        <!-- FORM DE LOGIN -->
+        <form method="POST" action="/login" class="fmLogin">
+
+            <div>
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" required/>
+            </div>
+
+            <div>
+                <label for="password">Clave:</label>
+                <input type="password" id="password" name="password" required/>
+            </div>
+
+            <div class="button-container">
+                <form method="POST" action="/login">
+                    <input class="sendBtn" type="submit" value="Acceder">
+                </form>
+
+                <form method="GET" action="/register">
+                    <input class="sendBtn" type="submit" value="Registrarse">
+                </form>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
