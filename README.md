@@ -1,0 +1,1 @@
+La carpeta proyecto es semi necesaria debido a que existen Imports en app.py y routes.py cuya direccion usa la carpeta, sin embargo puedes sacar los archivos de la carpeta y quitar la carpeta proyectov2 de la direccion del import
