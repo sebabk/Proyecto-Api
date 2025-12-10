@@ -1,7 +1,8 @@
-from flask import Flask, jsonify, request, render_template, redirect, url_for, session
+from flask import Flask, request, render_template, redirect, url_for, session
 from routes.routes import rutas          # blueprint principal
 from  proyectov2.models.db_mdl import db, valida_usuario,DATABASE_USER,DATABASE_PASSWD ,DATABASE_HOST,DATABASE_NAME,Usuario
 import secrets
+
 
 def create_app():
     app = Flask(__name__, template_folder='templates')
