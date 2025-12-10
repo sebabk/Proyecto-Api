@@ -1,5 +1,4 @@
 from flask import Blueprint, request, jsonify
-from sqlalchemy.orm import joinedload
 from proyectov2.models.db_mdl import db, Producto, Mercado,Usuario
 
 rutas = Blueprint("rutas", __name__)
