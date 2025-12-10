@@ -82,12 +82,25 @@ def login():
     # ---- FALLA ----
     return render_template('login.html', message='Credenciales incorrectas.')
 
+# ----------------------------------------------------
+# Saliendo de la API y eliminando la llave del API
+# ----------------------------------------------------
+
 
 @app.route('/logout')
 def logout():
-    """Cierra sesión."""
-    session.pop('user_id', None)
-    return redirect(url_for('index'))
+    user_id = session.get("user_id")
+
+    if user_id:
+        usuario = Usuario.query.get(user_id)
+        if usuario:
+            usuario.api_key = None   # ← INVALIDAR API KEY
+            db.session.commit()
+
+    # Limpiar sesión
+    session.clear()
+
+    return redirect('/login')
 
 
 @app.route('/register', methods=['GET', 'POST'])
